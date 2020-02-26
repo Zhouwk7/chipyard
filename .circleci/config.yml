@@ -143,6 +143,15 @@ jobs:
                 name: Check commits of each submodule
                 command: |
                     .circleci/check-commit.sh
+    tutorial-setup-check:
+        executor: main-env
+        steps:
+            - checkout
+            - run:
+                name: Check that the tutorial-setup patches apply
+                command: |
+                    scripts/tutorial-setup.sh
+
     install-riscv-toolchain:
         executor: main-env
         steps:
@@ -352,6 +361,9 @@ workflows:
             - install-verilator
 
             - commit-on-master-check
+
+            # Attempt to apply the tutorial patches
+            - tutorial-setup-check
 
             # Build extra tests
             - build-extra-tests:
