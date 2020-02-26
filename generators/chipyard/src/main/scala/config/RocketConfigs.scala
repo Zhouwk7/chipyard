@@ -1,7 +1,5 @@
 package chipyard
 
-import chisel3._
-
 import freechips.rocketchip.config.{Config}
 
 // --------------
