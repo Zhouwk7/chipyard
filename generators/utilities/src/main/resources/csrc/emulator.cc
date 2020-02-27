@@ -159,7 +159,7 @@ int main(int argc, char** argv)
       case 's': random_seed = atoi(optarg); break;
       case 'r': rbb_port = atoi(optarg);    break;
       case 'V': verbose = true;             break;
-      case 'D': dramsim = 1;
+      case 'D': dramsim = 1;                break;
 #if VM_TRACE
       case 'v': {
         vcdfile = strcmp(optarg, "-") == 0 ? stdout : fopen(optarg, "w");
