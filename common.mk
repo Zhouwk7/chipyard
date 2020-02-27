@@ -89,7 +89,7 @@ harness_macro_temp: $(HARNESS_SMEMS_CONF) | top_macro_temp
 # remove duplicate files and headers in list of simulation file inputs
 ########################################################################################
 $(sim_common_files): $(sim_files) $(sim_top_blackboxes) $(sim_harness_blackboxes)
-	awk '{print $1;}' $^ | sort -u | grep -v '.*\.h$$' > $@
+	awk '{print $1;}' $^ | sort -u | grep -v '.*\.h$$' | grep -v '.*\.ini$$' > $@
 
 #########################################################################################
 # helper rule to just make verilog files
@@ -155,5 +155,11 @@ $(output_dir)/tracegen.result: $(output_dir)/tracegen.out $(AXE)
 	$(base_dir)/scripts/check-tracegen.sh $< > $@
 
 tracegen: $(output_dir)/tracegen.result
+
+dramsim_dir = $(base_dir)/tools/DRAMSim2
+dramsim_lib = $(dramsim_dir)/libdramsim.a
+
+$(dramsim_lib):
+	$(MAKE) -C $(dramsim_dir) $(notdir $@)
 
 .PHONY: tracegen
